@@ -3,16 +3,16 @@
     <table>
       <tr>
         <th>address</th>
-        <th v-for="header in headers" :key="header.id">
-          {{ header }}
+        <th v-for="j in 10" :key="j">
+          +{{ j - 1 }}
         </th>
       </tr>
       <tr v-for="i in Math.ceil(values.length / 10)" :key="i">
         <td>
-          0000
+          {{ (i - 1) * 10 }}
         </td>
-        <th v-for="header in headers" :key="header.id">
-          {{ values[(i - 1) * 10 + header] }}
+        <th v-for="j in 10" :key="j">
+          {{ values[(i - 1) * 10 + j - 1] }}
         </th>
       </tr>
     </table>
@@ -24,7 +24,6 @@ export default {
   name: 'BinaryView',
   data () {
     return {
-      headers: Array.from(Array(10).keys()),
       values: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
     }
   }
