@@ -3,15 +3,17 @@
     <table>
       <tr>
         <th>address</th>
-        <th v-for="value in headers" :key="value.id">
-          {{ value }}
+        <th v-for="header in headers" :key="header.id">
+          {{ header }}
         </th>
       </tr>
-      <tr>
+      <tr v-for="i in Math.ceil(values.length / 10)" :key="i">
         <td>
           0000
         </td>
-        <td v-for="value in values" :key="value.id">{{ value }}</td>
+        <th v-for="header in headers" :key="header.id">
+          {{ values[(i - 1) * 10 + header] }}
+        </th>
       </tr>
     </table>
   </div>
@@ -23,7 +25,7 @@ export default {
   data () {
     return {
       headers: Array.from(Array(10).keys()),
-      values: [10, 11, 12, 13, 14]
+      values: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
     }
   }
 }
