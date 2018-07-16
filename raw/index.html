@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta property="og:title" content="Binary Viewer on Browser - はるふ" />
+    <meta property="og:description" content="完全ローカルでバイナリを表示するよ！" />
+    <link rel="stylesheet" type="text/css" href="./css/normalize.css">
+    <title>Binary Viewer on Browser - はるふ</title>
+    <style>
+      #binary-view span {
+        display: inline-block;
+        width: 4em;
+      }
+    </style>
+  </head>
+  <body>
+    <input id="fileInput" name='files[]' type='file' multiple>
+    <div id="binary-view"></div>
+    <script>
+      function handleFileSelect(event) {
+        event.preventDefault();
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const container = document.getElementById('binary-view');
+          new Uint8Array(e.target.result).forEach(function(value, index) {
+            const dom = document.createElement("span");
+            dom.innerText = value.toString(16);
+            container.appendChild(dom);
+            if (index % 16 == 15) {
+              container.appendChild(document.createElement("br"));
+            }
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      }
+      document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
+    </script>
+  </body>
+</html>
