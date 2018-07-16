@@ -1,19 +1,9 @@
 <template>
-  <div class="table-container">
-    <table>
-      <tr>
-        <th>address</th>
-        <th v-for="j in step" :key="j">
-          +{{ (j - 1).toString(radix) }}
-        </th>
-      </tr>
-      <tr v-for="i in Math.ceil(values.length / step)" :key="i">
-        <td>
-          {{ ((i - 1) * step).toString(radix) }}
-        </td>
-        <td-if-present v-for="j in step" :key="j" v-bind:value="values[(i - 1) * step + j - 1]" v-bind:radix="radix"></td-if-present>
-      </tr>
-    </table>
+  <div class="container">
+    <span tr v-for="(value, index) in values" :key="index">
+      {{ value }}
+      <br v-if="index % 10 === 9">
+    </span>
   </div>
 </template>
 
@@ -30,7 +20,7 @@ const TdIfPresent = Vue.extend({
 })
 
 export default {
-  name: 'BinaryView',
+  name: 'BinaryView2',
   data () {
     return {}
   },
@@ -43,7 +33,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.table-container table {
+.container {
+  width: 549px;
   margin: auto;
+}
+span {
+  display: inline-block;
+  width: 50px;
 }
 </style>

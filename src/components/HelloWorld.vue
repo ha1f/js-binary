@@ -1,22 +1,39 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <binary-view />
+    <input @change="selectedFile" name="file" type="file">
+    <binary-view :values="values" :step="16" :radix="16" />
   </div>
 </template>
 
 <script>
-import BinaryView from '@/components/BinaryView'
+// import BinaryView from '@/components/BinaryView'
+import BinaryView2 from '@/components/BinaryView2'
 
 export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      values: []
     }
   },
   components: {
-    'binary-view': BinaryView
+    'binary-view': BinaryView2
+  },
+  methods: {
+    selectedFile: function (event) {
+      console.log('start loading')
+      event.preventDefault()
+      const file = event.target.files[0]
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        console.log('finish loading')
+        console.log(e.target.result)
+        this.values = new Uint8Array(e.target.result)
+      }
+      reader.readAsArrayBuffer(file)
+    }
   }
 }
 </script>
